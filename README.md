@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Treetech Maps V2
 
-## Getting Started
+## Descrição do Projeto
+O **Treetech Maps V2** é um sistema que automatiza o processamento e o cruzamento de dados provenientes de dois arquivos `.csv`, gerando uma planilha final enriquecida com informações complementares.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Funcionamento
+
+### Entrada de Dados:
+- **Primeiro Arquivo:** Contém o mapeamento original, sem a coluna "Mnemônico".
+- **Segundo Arquivo:** Inclui uma correspondência entre IDs (na coluna 1) e mnemônicos (na coluna 2), que representam a versão anterior do módulo.
+
+### Processamento:
+O sistema aplica a seguinte lógica:
+
+```excel
+=SE(A2<>"";SE(PROCV(A2;Planilha1!A:B;2;FALSO)=0;"";PROCV(A2;Planilha1!A:B;2;FALSO));"")
 ```
+Essa lógica realiza os seguintes passos:
+1. Busca o **mnemônico** correspondente no segundo arquivo para cada ID presente no primeiro arquivo.
+2. Caso o mnemônico não seja encontrado, retorna uma célula vazia.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Saída:
+- Uma nova coluna é adicionada na posição "Z" com o título **"Mnemônico"**.
+- Essa coluna é preenchida com os **mnemônicos** alinhados corretamente aos seus respectivos **IDs**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tecnologias Utilizadas
 
-## Learn More
+### Frontend:
+- **React com Next.js:** Framework para desenvolvimento de interfaces modernas com rotas otimizadas e rendering eficiente.
+- **TailwindCSS:** Framework CSS para criação de interfaces responsivas e consistentes.
 
-To learn more about Next.js, take a look at the following resources:
+### Integração:
+- **Axios:** Biblioteca para chamadas HTTP e integração com APIs.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
