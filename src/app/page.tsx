@@ -1,13 +1,21 @@
+'use client';
+
 import Image from 'next/image';
 import logo from './logo.png';
 import planilhaIcon from '../image/planilha.png';
 import planilhaIcon2 from '../image/planilha2.png';
 import BotaoAtualizar from '@/component/BotaoAtualizar/BotaoAtualizar';
 import Loader from '@/component/Loader/Loader';
-import Loader2 from '@/component/Loader2/Loader2';
-import Loader3 from '@/component/Loader3/Loader3';
+import { useState } from 'react';
+
 
 export default function Home() {
+
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+  }
 
   return (
     <div className='flex-col flex items-center w-[100vw] h-[100vh] py-8'>
@@ -40,13 +48,16 @@ export default function Home() {
         </section>
 
         <section className='flex gap-10 justify-center'>
-          <BotaoAtualizar />
+          <BotaoAtualizar onClick={handleClick} />
 
         </section>
-        <div className='flex'>
-          <Loader />
-          <Loader3 />
-        </div>
+
+        {loading && (
+          <div className='flex fixed w-screen h-screen bg-green-700 bg-opacity-90  items-center justify-center top-0'>
+            <Loader />
+          </div>
+        )}
+
       </main>
 
     </div>

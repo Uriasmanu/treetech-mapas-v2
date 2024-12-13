@@ -1,8 +1,12 @@
 import './BotaoAtualizar.css';
 
-export default function BotaoAtualizar() {
+interface BotaoAtualizarProps {
+    onClick: () => void;
+  }
+
+  export default function BotaoAtualizar({ onClick }: BotaoAtualizarProps) {
     return (
-        <button className="botao-atualizar">
+        <button onClick={onClick} className="botao-atualizar">
             Atualizar
         </button>
     );
