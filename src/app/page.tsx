@@ -3,6 +3,9 @@ import logo from './logo.png';
 import planilhaIcon from '../image/planilha.png';
 import planilhaIcon2 from '../image/planilha2.png';
 import BotaoAtualizar from '@/component/BotaoAtualizar/BotaoAtualizar';
+import Loader from '@/component/Loader/Loader';
+import Loader2 from '@/component/Loader2/Loader2';
+import Loader3 from '@/component/Loader3/Loader3';
 
 export default function Home() {
 
@@ -15,7 +18,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="w-full h-screen bg-green-500 p-4 flex flex-col items-center justify-center gap-8">
+      <main className="w-full h-screen bg-green-500 p-4 flex flex-col items-center justify-center gap-16">
         <section className='flex gap-16 justify-center'>
 
           <div className="p-28 border-4 border-dashed border-green-900">
@@ -37,10 +40,13 @@ export default function Home() {
         </section>
 
         <section className='flex gap-10 justify-center'>
-          <BotaoAtualizar/>
+          <BotaoAtualizar />
 
         </section>
-
+        <div className='flex'>
+          <Loader />
+          <Loader3 />
+        </div>
       </main>
 
     </div>
