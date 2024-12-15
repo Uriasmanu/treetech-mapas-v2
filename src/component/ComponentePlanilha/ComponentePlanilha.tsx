@@ -20,6 +20,7 @@ export default function ComponentePlanilha({ texto, id, onFileSelect }: Componen
                 className="hidden"
                 onChange={handleFileChange} 
                 accept='.csv'
+                id="file-upload" 
             />
             <label
                 htmlFor="file-upload"
