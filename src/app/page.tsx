@@ -32,9 +32,13 @@ export default function Home() {
       <main className="w-full h-screen bg-green-500 p-4 flex flex-col items-center justify-center gap-16">
 
         <section className='flex gap-16 justify-center w-[90rem]'>
-          <ComponentePlanilha />
+          <ComponentePlanilha
+            texto="Clique aqui para selecionar o mapeamento que precisa ser atualizado"
+          />
 
-          <ComponentePlanilha />
+          <ComponentePlanilha
+            texto="Clique aqui para selecionar o mapeamento que tem os Mnemônicos corretos"
+          />
         </section>
 
 

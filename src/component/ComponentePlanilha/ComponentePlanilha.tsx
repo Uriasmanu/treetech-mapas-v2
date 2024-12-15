@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import planilhaIcon from '@/image/planilha.png';
 
-export default function ComponentePlanilha() {
+interface ComponentePlanilhaProps {
+    texto: string;
+}
+
+export default function ComponentePlanilha({ texto }: ComponentePlanilhaProps)  {
     return (
         <div>
            <input
@@ -19,7 +23,7 @@ export default function ComponentePlanilha() {
                     alt="Ícone de planilha"
                     className="w-[30px] h-[30px]"
                 />
-                <h2 className="text-base font-bold"></h2>
+                <h2 className="text-base font-bold">{texto}</h2>
             </label>
         </div>
     );
