@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import logo from './logo.png';
 import planilhaIcon from '../image/planilha.png';
-import planilhaIcon2 from '../image/planilha2.png';
 import BotaoAtualizar from '@/component/BotaoAtualizar/BotaoAtualizar';
 import Loader from '@/component/Loader/Loader';
 import { useState } from 'react';
@@ -27,23 +26,25 @@ export default function Home() {
       </header>
 
       <main className="w-full h-screen bg-green-500 p-4 flex flex-col items-center justify-center gap-16">
+
         <section className='flex gap-16 justify-center'>
 
-          <div className="p-28 border-4 border-dashed border-green-900">
+          <div className="">
             <input type="file" className="hidden" id="file-upload" />
-            <label htmlFor="file-upload" className="flex flex-col items-center cursor-pointer w-[20rem] text-center mx-auto gap-4">
+            <label htmlFor="file-upload" className="flex flex-col items-center cursor-pointer w-[40rem] text-center mx-auto gap-4 p-28 border-4 border-dashed border-green-900">
               <Image src={planilhaIcon} alt="Ícone de planilha" className='w-[30px] h-[30px]' />
-              <h2 className="text-base font-bold ">Arraste aqui ou selecione o mapeamento que precisa ser atualizado</h2>
+              <h2 className="text-base font-bold ">Clique aqui para selecionar o mapeamento que precisa ser atualizado</h2>
             </label>
           </div>
 
-          <div className="p-28 border-4 border-dashed border-green-900">
+          <div className="">
             <input type="file" className="hidden" id="file-upload" />
-            <label htmlFor="file-upload" className="flex flex-col items-center cursor-pointer w-[20rem] text-center mx-auto gap-4">
-              <Image src={planilhaIcon2} alt="Ícone de planilha" className='w-[30px] h-[30px]' />
-              <h2 className="text-base font-bold ">Arraste aqui ou selecione o mapeamento que contem os Mnemônicos</h2>
+            <label htmlFor="file-upload" className="flex flex-col items-center cursor-pointer w-[40rem] text-center mx-auto gap-4 p-28 border-4 border-dashed border-green-900">
+              <Image src={planilhaIcon} alt="Ícone de planilha" className='w-[30px] h-[30px]' />
+              <h2 className="text-base font-bold ">Clique aqui para selecionar o mapeamento que tem os Mnemônicos corretos</h2>
             </label>
           </div>
+
 
         </section>
 
