@@ -1,7 +1,7 @@
 /* From Uiverse.io by Kemboi-Dun */ 
 .card {
-    width: 300px;
-    height: 300px;
+    width:4rem;
+    height: 4rem;
     background: #e4e3e3da;
     border-radius: 1em;
     display: flex;
@@ -19,8 +19,8 @@
   }
   
   .card-icon svg {
-    height: 4rem;
-    width: 4rem;
+    height: 2rem;
+    width: 2%rem;
   }
   
   .card-body {

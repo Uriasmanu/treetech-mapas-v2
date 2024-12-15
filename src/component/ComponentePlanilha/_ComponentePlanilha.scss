@@ -1,0 +1,28 @@
+.input-planilha {
+  
+    input {
+    display: none;
+  }
+
+  label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 40rem;
+    text-align: center;
+    margin:auto;
+    gap: 1rem;
+    padding: 5rem;
+    border: 4px dashed rgb(10, 104, 22);
+  }
+
+  .img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .text-base{
+    font-weight: bold;
+  }
+}
