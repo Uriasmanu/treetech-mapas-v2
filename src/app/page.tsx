@@ -33,10 +33,12 @@ export default function Home() {
 
         <section className='flex gap-16 justify-center w-[90rem]'>
           <ComponentePlanilha
+            id="nova-planilha"
             texto="Clique aqui para selecionar o mapeamento que precisa ser atualizado"
           />
 
           <ComponentePlanilha
+            id="planilha-completa"
             texto="Clique aqui para selecionar o mapeamento que tem os Mnemônicos corretos"
           />
         </section>

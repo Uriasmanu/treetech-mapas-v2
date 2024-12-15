@@ -3,16 +3,16 @@ import planilhaIcon from '@/image/planilha.png';
 
 interface ComponentePlanilhaProps {
     texto: string;
+    id: string;
 }
 
-export default function ComponentePlanilha({ texto }: ComponentePlanilhaProps)  {
+export default function ComponentePlanilha({ texto, id, }: ComponentePlanilhaProps)  {
     return (
-        <div>
+        <div id={id}>
            <input
                 type="file"
                 className="hidden"
-                id="file-upload"
-                accept=".csv" // Restringe a seleção a arquivos de planilha
+                accept=".csv"
             />
             <label
                 htmlFor="file-upload"
