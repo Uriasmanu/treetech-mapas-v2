@@ -11,7 +11,8 @@ import ComponentePlanilha from '@/component/ComponentePlanilha/ComponentePlanilh
 
 
 export default function Home() {
-
+  const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
+  const [planilhaCompleta, setPlanilhaCompleta] = useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -35,11 +36,13 @@ export default function Home() {
           <ComponentePlanilha
             id="nova-planilha"
             texto="Clique aqui para selecionar o mapeamento que precisa ser atualizado"
+            onFileSelect={setNovaPlanilha}
           />
 
           <ComponentePlanilha
             id="planilha-completa"
             texto="Clique aqui para selecionar o mapeamento que tem os Mnemônicos corretos"
+            onFileSelect={setPlanilhaCompleta}
           />
         </section>
 

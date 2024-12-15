@@ -1,18 +1,25 @@
 import Image from 'next/image';
 import planilhaIcon from '@/image/planilha.png';
-
+import { ChangeEvent } from 'react';
 interface ComponentePlanilhaProps {
     texto: string;
     id: string;
+    onFileSelect: (file: File | null) => void;
 }
 
-export default function ComponentePlanilha({ texto, id, }: ComponentePlanilhaProps)  {
+export default function ComponentePlanilha({ texto, id, onFileSelect }: ComponentePlanilhaProps)  {
+    const handleFileChange = (event: ChangeEvent <HTMLInputElement>) => {
+        const file = event.target.files![0] || null;
+        onFileSelect(file);
+    }
+
     return (
         <div id={id}>
            <input
                 type="file"
                 className="hidden"
-                accept=".csv"
+                onChange={handleFileChange} 
+                accept='.csv'
             />
             <label
                 htmlFor="file-upload"
