@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import planilhaIcon from '@/image/planilha.png';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import ComponenteFile from '../ComponenteFile/ComponenteFile';
 
 import './_ComponentePlanilha.scss'
@@ -13,11 +13,16 @@ interface ComponentePlanilhaProps {
 
 export default function ComponentePlanilha({ texto, id, onFileSelect }: ComponentePlanilhaProps) {
 
+    const [nomeArquivo, setNomeArquivo] = useState<string>('');
+
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0] || null;
-        onFileSelect(file);
-
-
+        if (file) {
+            setNomeArquivo(file.name);
+            onFileSelect(file);
+        } else {
+            setNomeArquivo('');
+        }
     }
 
     return (
@@ -31,8 +36,8 @@ export default function ComponentePlanilha({ texto, id, onFileSelect }: Componen
             <label
                 htmlFor={`file-upload-${id}`}
             >
-                <ComponenteFile />
-                
+                <ComponenteFile nomeArquivo={nomeArquivo} />
+
                 <div className='contain-imagem'>
                     <Image
                         src={planilhaIcon}
