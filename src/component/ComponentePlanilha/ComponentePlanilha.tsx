@@ -29,15 +29,18 @@ export default function ComponentePlanilha({ texto, id, onFileSelect }: Componen
                 id={`file-upload-${id}`}
             />
             <label
-                htmlFor={`file-upload-${id}`}    
+                htmlFor={`file-upload-${id}`}
             >
-                <ComponenteFile/>
-                <Image
-                    src={planilhaIcon}
-                    alt="Ícone de planilha"
-                    className="img"
-                />
-                <h2 className="text-base">{texto}</h2>
+                <ComponenteFile />
+                
+                <div className='contain-imagem'>
+                    <Image
+                        src={planilhaIcon}
+                        alt="Ícone de planilha"
+                        className="img"
+                    />
+                    <h2 className="text-base">{texto}</h2>
+                </div>
             </label>
 
 

@@ -1,17 +1,17 @@
 /* From Uiverse.io by Kemboi-Dun */ 
 .card {
-    width:4rem;
-    height: 4rem;
+    width: auto;
+    height: 5rem;
     background: #e4e3e3da;
     border-radius: 1em;
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
-    gap: 0.4em;
+    gap: 0.9em;
     align-items: flex-start;
     padding: 1em 1.5em;
     transition: all 0.5s ease;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    align-items: center;
   }
   
   .card:hover {
@@ -20,7 +20,7 @@
   
   .card-icon svg {
     height: 2rem;
-    width: 2%rem;
+    width: 2rem;
   }
   
   .card-body {
