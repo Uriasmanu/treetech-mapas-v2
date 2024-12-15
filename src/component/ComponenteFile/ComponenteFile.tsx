@@ -3,9 +3,10 @@ import './ComponenteFile.css';
 
 interface ComponenteFileProps {
     nomeArquivo: string;
+    tamanhoArquivo: string;
 }
 
-export default function ComponenteFile( {nomeArquivo}: ComponenteFileProps ) {
+export default function ComponenteFile( {nomeArquivo, tamanhoArquivo}: ComponenteFileProps ) {
     return (
         <div className="card">
             <div className="card-icon">
@@ -13,6 +14,7 @@ export default function ComponenteFile( {nomeArquivo}: ComponenteFileProps ) {
             </div>
             <span className="card-body">
                 <p>{nomeArquivo}</p>
+                <p>{tamanhoArquivo}</p>
             </span>
         </div>
     )

@@ -13,15 +13,18 @@ interface ComponentePlanilhaProps {
 
 export default function ComponentePlanilha({ texto, id, onFileSelect }: ComponentePlanilhaProps) {
 
-    const [nomeArquivo, setNomeArquivo] = useState<string>('');
+    const [fileDetails, setFileDetails] = useState<FileDetails | null>(null);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0] || null;
         if (file) {
-            setNomeArquivo(file.name);
+            setFileDetails({
+                nome: file.name,
+                tamanho: file.size,
+            });
             onFileSelect(file);
         } else {
-            setNomeArquivo('');
+            setFileDetails(null);
         }
     }
 
@@ -33,21 +36,27 @@ export default function ComponentePlanilha({ texto, id, onFileSelect }: Componen
                 accept='.csv'
                 id={`file-upload-${id}`}
             />
-            <label
-                htmlFor={`file-upload-${id}`}
-            >
-                <ComponenteFile nomeArquivo={nomeArquivo} />
-
-                <div className='contain-imagem'>
-                    <Image
-                        src={planilhaIcon}
-                        alt="Ícone de planilha"
-                        className="img"
+            <label htmlFor={`file-upload-${id}`}>
+                {/* Renderiza ComponenteFile apenas se houver um arquivo selecionado */}
+                {fileDetails && (
+                    <ComponenteFile
+                        nomeArquivo={fileDetails.nome}
+                        tamanhoArquivo={fileDetails.tamanho}
                     />
-                    <h2 className="text-base">{texto}</h2>
-                </div>
-            </label>
+                )}
 
+                {/* Renderiza contain-imagem apenas se NÃO houver um arquivo selecionado */}
+                {!fileDetails && (
+                    <div className="contain-imagem">
+                        <Image
+                            src={planilhaIcon}
+                            alt="Ícone de planilha"
+                            className="img"
+                        />
+                        <h2 className="text-base">{texto}</h2>
+                    </div>
+                )}
+            </label>
 
         </div>
 
