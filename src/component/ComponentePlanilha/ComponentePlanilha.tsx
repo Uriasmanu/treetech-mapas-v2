@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import planilhaIcon from '@/image/planilha.png';
 import { ChangeEvent } from 'react';
+import ComponenteFile from '../ComponenteFile/ComponenteFile';
 interface ComponentePlanilhaProps {
     texto: string;
     id: string;
@@ -31,6 +32,7 @@ export default function ComponentePlanilha({ texto, id, onFileSelect }: Componen
                 htmlFor={`file-upload-${id}`}
                 className={'flex flex-col items-center cursor-pointer w-[40rem] text-center mx-auto gap-4 p-28 border-4 border-dashed border-green-900 '}       
             >
+                <ComponenteFile/>
                 <Image
                     src={planilhaIcon}
                     alt="Ícone de planilha"
