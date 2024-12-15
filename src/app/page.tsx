@@ -8,20 +8,16 @@ import { useState } from 'react';
 import ComponentePlanilha from '@/component/ComponentePlanilha/ComponentePlanilha';
 
 
+
+
 export default function Home() {
-  const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
-  const [planilhaCompleta, setPlanilhaCompleta] = useState<File | null>(null);
+
 
   const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
-    if (!novaPlanilha || !planilhaCompleta) {
-      return;
-    }
-
     setLoading(true);
-    console.log('Nova Planilha:', novaPlanilha);
-    console.log('Planilha Completa:', planilhaCompleta);
+
   }
 
   return (
@@ -36,16 +32,9 @@ export default function Home() {
       <main className="w-full h-screen bg-green-500 p-4 flex flex-col items-center justify-center gap-16">
 
         <section className='flex gap-16 justify-center w-[90rem]'>
-          <ComponentePlanilha
-            id="nova-planilha"
-            texto="Clique aqui para selecionar o mapeamento que precisa ser atualizado"
-            onFileSelect={setNovaPlanilha}
-          />
-          <ComponentePlanilha
-            id="planilha-completa"
-            texto="Clique aqui para selecionar o mapeamento que tem os Mnemônicos corretos"
-            onFileSelect={setPlanilhaCompleta}
-          />
+          <ComponentePlanilha />
+
+          <ComponentePlanilha />
         </section>
 
 
