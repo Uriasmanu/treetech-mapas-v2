@@ -17,8 +17,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
-    setLoading(true);
+    if (!novaPlanilha || !planilhaCompleta) {
+      return;
+    }
 
+    setLoading(true);
+    console.log('Nova Planilha:', novaPlanilha);
+    console.log('Planilha Completa:', planilhaCompleta);
   }
 
   return (
