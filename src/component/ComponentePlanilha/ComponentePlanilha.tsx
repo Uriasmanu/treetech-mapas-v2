@@ -11,6 +11,11 @@ interface ComponentePlanilhaProps {
     onFileSelect: (file: File | null) => void;
 }
 
+interface FileDetails {
+    nome: string;
+    tamanho: number; 
+  }
+
 export default function ComponentePlanilha({ texto, id, onFileSelect }: ComponentePlanilhaProps) {
 
     const [fileDetails, setFileDetails] = useState<FileDetails | null>(null);
