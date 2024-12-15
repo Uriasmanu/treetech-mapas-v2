@@ -20,10 +20,10 @@ export default function ComponentePlanilha({ texto, id, onFileSelect }: Componen
                 className="hidden"
                 onChange={handleFileChange} 
                 accept='.csv'
-                id="file-upload" 
+                id={`file-upload-${id}`} 
             />
             <label
-                htmlFor="file-upload"
+                htmlFor={`file-upload-${id}`} 
                 className="flex flex-col items-center cursor-pointer w-[40rem] text-center mx-auto gap-4 p-28 border-4 border-dashed border-green-900"
             >
                 <Image
