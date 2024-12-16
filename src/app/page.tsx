@@ -4,7 +4,7 @@ import Image from 'next/image';
 import logo from './logo.png';
 import BotaoAtualizar from '@/component/BotaoAtualizar/BotaoAtualizar';
 import Loader from '@/component/Loader/Loader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ComponentePlanilha from '@/component/ComponentePlanilha/ComponentePlanilha';
 import MensagemErro from '@/component/MensagemErro/MensagemErro';
 
@@ -12,12 +12,26 @@ import MensagemErro from '@/component/MensagemErro/MensagemErro';
 export default function Home() {
   const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
   const [planilhaCompleta, setPlanilhaCompleta] = useState<File | null>(null);
-
+  const [erro, setErro] = useState<string>('');
   const [loading, setLoading] = useState(false);
+
+  const handleErrorClose = () => {
+    setErro('');
+  };
+
+  useEffect(() => {
+    if (erro) {
+      // Fecha o erro após 4 segundos
+      const timer = setTimeout(handleErrorClose, 4000);
+
+      // Limpa o timer se o componente for desmontado ou se a mensagem de erro for removida
+      return () => clearTimeout(timer);
+    }
+  }, [erro]);
 
   const handleClick = () => {
     if (!novaPlanilha || !planilhaCompleta) {
-      console.log('Erro: Ambas as planilhas precisam ser selecionadas.');
+      setErro('Ambas as planilhas precisam ser selecionadas para que o sistema possa funcionar corretamente.');
       return;
     }
 
@@ -36,9 +50,11 @@ export default function Home() {
       </header>
 
       <main className="w-full h-screen bg-green-500 p-4 flex flex-col items-center justify-center gap-16">
-        <div className='fixed'>
-          <MensagemErro mensagemErro='mensagem'/>
-        </div>
+        {erro && (
+          <div className='fixed'>
+            <MensagemErro mensagemErro={erro} /> {/* Só exibe se houver erro */}
+          </div>
+        )}
 
         <section className='flex gap-16 justify-center w-[90rem]'>
           <ComponentePlanilha

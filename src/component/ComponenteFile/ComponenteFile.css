@@ -1,5 +1,5 @@
 /* From Uiverse.io by Kemboi-Dun */ 
-.card {
+.card-file {
     width: auto;
     height: 5rem;
     background: #e4e3e3da;
@@ -26,4 +26,10 @@
   .card-body {
     text-align: justify;
 
+    p{
+      width: 100%;
+      display: flex;
+      gap: 10px;
+
+    }
   }
