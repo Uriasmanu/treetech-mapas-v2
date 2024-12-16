@@ -6,8 +6,7 @@ import BotaoAtualizar from '@/component/BotaoAtualizar/BotaoAtualizar';
 import Loader from '@/component/Loader/Loader';
 import { useState } from 'react';
 import ComponentePlanilha from '@/component/ComponentePlanilha/ComponentePlanilha';
-
-
+import MensagemErro from '@/component/MensagemErro/MensagemErro';
 
 
 export default function Home() {
@@ -18,6 +17,7 @@ export default function Home() {
 
   const handleClick = () => {
     if (!novaPlanilha || !planilhaCompleta) {
+      console.log('Erro: Ambas as planilhas precisam ser selecionadas.');
       return;
     }
 
@@ -36,6 +36,9 @@ export default function Home() {
       </header>
 
       <main className="w-full h-screen bg-green-500 p-4 flex flex-col items-center justify-center gap-16">
+        <div className='fixed'>
+          <MensagemErro mensagemErro='mensagem'/>
+        </div>
 
         <section className='flex gap-16 justify-center w-[90rem]'>
           <ComponentePlanilha

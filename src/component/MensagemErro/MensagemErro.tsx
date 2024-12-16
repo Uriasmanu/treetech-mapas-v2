@@ -1,48 +1,25 @@
-export default function MensagemErro() {
-    <div
-        className="relative w-full max-w-64 flex flex-wrap items-center justify-center py-3 pl-4 pr-14 rounded-lg text-base font-medium [transition:all_0.5s_ease] border-solid border border-[#f85149] text-[#b22b2b] [&amp;_svg]:text-[#b22b2b] group bg-[linear-gradient(#f851491a,#f851491a)]"
-    >
-        <button
-            type="button"
-            aria-label="close-error"
-            className="absolute right-4 p-1 rounded-md transition-opacity text-[#f85149] border border-[#f85149] opacity-40 hover:opacity-100"
-        >
-            <svg
-                stroke="currentColor"
-                fill="none"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                height="16"
-                width="16"
-                className="sizer [--sz:16px] h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-            </svg>
-        </button>
-        <p className="flex flex-row items-center mr-auto gap-x-2">
-            <svg
-                stroke="currentColor"
-                fill="none"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                height="28"
-                width="28"
-                className="h-7 w-7"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"
-                ></path>
-                <path d="M12 9v4"></path>
-                <path d="M12 17h.01"></path>
-            </svg>
-            Incorrect token
-        </p>
-    </div>
+import './_MensagemErro.scss';
+
+interface MensagemErroProps {
+    mensagemErro: string;
+}
+
+export default function MensagemErro({ mensagemErro }: MensagemErroProps) {
+    return (
+
+        <div className="card">
+            <div className="header">
+                <div className="image"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg></div>
+                <div className="content">
+                    <span className="title">Mensagem de Erro</span>
+                    <p className="message">{mensagemErro}</p>
+                </div>
+                <div className="actions">
+
+                </div>
+            </div>
+        </div>
+    );
 }
