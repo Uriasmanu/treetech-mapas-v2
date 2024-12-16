@@ -48,7 +48,10 @@ export const usePlanilha = () => {
                     setPlanilhaModificada(novaPlanilhaComColuna); // Armazena os dados modificados no estado
                     console.log("Nova Planilha com Coluna:", novaPlanilhaComColuna);
 
-                    setLoading(false);
+                    // Atraso de 4 segundos antes de setar o loading para false
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 4000); // 4 segundos de delay
                 },
                 error: () => {
                     setErro('Erro ao ler a nova planilha.');
