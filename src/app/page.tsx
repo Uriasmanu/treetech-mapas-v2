@@ -4,20 +4,25 @@ import Image from 'next/image';
 import logo from './logo.png';
 import BotaoAtualizar from '@/component/BotaoAtualizar/BotaoAtualizar';
 import Loader from '@/component/Loader/Loader';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import ComponentePlanilha from '@/component/ComponentePlanilha/ComponentePlanilha';
 import MensagemErro from '@/component/MensagemErro/MensagemErro';
+import { usePlanilha } from '@/hook/usePlanilha';
+
 
 
 export default function Home() {
-  const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
-  const [planilhaCompleta, setPlanilhaCompleta] = useState<File | null>(null);
-  const [erro, setErro] = useState<string>('');
-  const [loading, setLoading] = useState(false);
+  const {
+    erro,
+    setErro,
+    loading,
+    setPlanilhaCompleta,
+    setNovaPlanilha,
+    atualizarPlanilha,
+    handleErrorClose,
+    planilhaModificada,
+  } = usePlanilha();
 
-  const handleErrorClose = () => {
-    setErro('');
-  };
 
   useEffect(() => {
     if (erro) {
@@ -29,16 +34,6 @@ export default function Home() {
     }
   }, [erro]);
 
-  const handleClick = () => {
-    if (!novaPlanilha || !planilhaCompleta) {
-      setErro('Ambas as planilhas precisam ser selecionadas para que o sistema possa funcionar corretamente.');
-      return;
-    }
-
-    setLoading(true);
-    console.log('Nova Planilha:', novaPlanilha);
-    console.log('Planilha Completa:', planilhaCompleta);
-  }
 
   return (
     <div className='flex-col flex items-center w-[100vw] h-[100vh] py-8'>
@@ -72,7 +67,7 @@ export default function Home() {
 
 
         <section className='flex gap-10 justify-center'>
-          <BotaoAtualizar onClick={handleClick} />
+        <BotaoAtualizar onClick={atualizarPlanilha} />
 
         </section>
 
