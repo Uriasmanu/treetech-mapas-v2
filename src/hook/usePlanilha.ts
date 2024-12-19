@@ -2,78 +2,94 @@ import { useState } from 'react';
 import Papa from 'papaparse';
 
 export const usePlanilha = () => {
-    const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
-    const [planilhaCompleta, setPlanilhaCompleta] = useState<File | null>(null);
-    const [planilhaModificada, setPlanilhaModificada] = useState<any[]>([]); // Novo estado
-    const [erro, setErro] = useState<string>('');
-    const [loading, setLoading] = useState(false);
+  const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
+  const [planilhaModificada, setPlanilhaModificada] = useState<any[]>([]);
+  const [erro, setErro] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
-    const handleErrorClose = () => {
-        setErro('');
-    };
+  const handleErrorClose = () => setErro('');
 
-    // Função para adicionar a coluna "Mnemônico" na posição desejada
-    const adicionarColunaMnemonico = (dados: any[], posicao: number) => {
-        return dados.map((linha, index) => {
-            const novaLinha = [...linha]; // Cria uma cópia da linha
-            if (index === 0) { // Adiciona o cabeçalho "Mnemônico" na primeira linha (cabeçalho)
-                novaLinha.splice(posicao, 0, 'Mnemônico');
-            } else { // Para as demais linhas, adiciona um valor vazio ou um valor desejado
-                novaLinha.splice(posicao, 0, ''); // Ou outro valor para a célula
-            }
-            return novaLinha;
-        });
-    };
+  // Função para adicionar "Mnemônico" na posição 26
+  const adicionarColunaMnemonico = (dados: any[]) => {
+    return dados.map((linha: any, index: number) => {
+      const novaLinha = [...linha];
+      novaLinha[25] = index === 0 ? 'Mnemônico' : ''; // Adiciona no cabeçalho ou mantém vazio
+      return novaLinha;
+    });
+  };
 
-    // Função para manipular a nova planilha
-    const atualizarPlanilha = async () => {
-        if (!novaPlanilha) {
-            setErro('A nova planilha precisa ser selecionada.');
-            return;
+  // Função para corrigir codificação de caracteres (UTF-8)
+  const corrigirCodificacao = (texto: string) => {
+    try {
+      return decodeURIComponent(escape(texto));
+    } catch (e) {
+      return texto; // Se não der certo, retorna o texto original
+    }
+  };
+
+  // Função para converter os dados modificados diretamente para CSV
+  const gerarCsv = (dados: any[], fileName: string) => {
+    const csvContent = dados.map(linha => linha.join(';')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8-bom;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute('href', url);
+    link.setAttribute('download', fileName);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Manipular a nova planilha
+  const atualizarPlanilha = async () => {
+    if (!novaPlanilha) {
+      setErro('A nova planilha precisa ser selecionada.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      Papa.parse(novaPlanilha, {
+        header: false,
+        skipEmptyLines: true,
+        complete: resultadoNovaPlanilha => {
+          const dadosNovaPlanilha = resultadoNovaPlanilha.data.map(linha =>
+            linha.map(corrigirCodificacao) // Aplica a conversão em cada célula
+          );
+
+          // Adicionar "Mnemônico" na posição 26
+          const novaPlanilha = adicionarColunaMnemonico(dadosNovaPlanilha);
+
+          // Atualizar estado
+          setPlanilhaModificada(novaPlanilha);
+
+          // Gerar e fazer o download do CSV
+          gerarCsv(novaPlanilha, 'planilha_modificada.csv');
+
+          setTimeout(() => setLoading(false), 4000);
+        },
+        error: () => {
+          setErro('Erro ao ler a nova planilha.');
+          setLoading(false);
         }
+      });
+    } catch (error) {
+      setErro('Ocorreu um erro ao processar a planilha.');
+      setLoading(false);
+    }
+  };
 
-        setLoading(true);
-        try {
-            // Ler o CSV da nova planilha
-            Papa.parse(novaPlanilha, {
-                encoding: 'UTF-8', // Especificando a codificação como UTF-8
-                complete: (resultadoNovaPlanilha) => {
-                    const dadosNovaPlanilha = resultadoNovaPlanilha.data;
-
-                    // Adicionar a coluna "Mnemônico" na posição desejada (exemplo: na posição 26)
-                    const posicaoColuna = 26; // Defina a posição desejada para a coluna "Mnemônico"
-                    const novaPlanilhaComColuna = adicionarColunaMnemonico(dadosNovaPlanilha, posicaoColuna);
-
-                    // Atualiza o estado da nova planilha com a coluna "Mnemônico" adicionada
-                    setPlanilhaModificada(novaPlanilhaComColuna); // Armazena os dados modificados no estado
-                    console.log("Nova Planilha com Coluna:", novaPlanilhaComColuna);
-
-                    // Atraso de 4 segundos antes de setar o loading para false
-                    setTimeout(() => {
-                        setLoading(false);
-                    }, 4000); // 4 segundos de delay
-                },
-                error: () => {
-                    setErro('Erro ao ler a nova planilha.');
-                    setLoading(false);
-                }
-            });
-        } catch (error) {
-            setErro('Ocorreu um erro ao processar a planilha.');
-            setLoading(false);
-        }
-    };
-
-    // Retornando todos os estados e funções
-    return {
-        novaPlanilha,
-        erro,
-        setErro,
-        loading,
-        setNovaPlanilha,
-        atualizarPlanilha,
-        handleErrorClose,
-        setPlanilhaCompleta,
-        planilhaModificada, // Exportando a planilha modificada
-    };
+  return {
+    novaPlanilha,
+    erro,
+    setErro,
+    loading,
+    setNovaPlanilha,
+    atualizarPlanilha,
+    handleErrorClose,
+    planilhaModificada
+  };
 };
