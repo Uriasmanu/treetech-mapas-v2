@@ -14,13 +14,11 @@ import { usePlanilha } from '@/hook/usePlanilha';
 export default function Home() {
   const {
     erro,
-    setErro,
     loading,
     setPlanilhaCompleta,
     setNovaPlanilha,
     atualizarPlanilha,
     handleErrorClose,
-    planilhaModificada,
   } = usePlanilha();
 
 
