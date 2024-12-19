@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 
 export const usePlanilha = () => {
   const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
+  const [planilhaCompleta, setPlanilhaCompleta] = useState<File | null>(null);
   const [planilhaModificada, setPlanilhaModificada] = useState<any[]>([]);
   const [erro, setErro] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -43,15 +44,37 @@ export const usePlanilha = () => {
     document.body.removeChild(link);
   };
 
-  // Manipular a nova planilha
+  // Função para comparar os IDs das planilhas e atualizar a coluna Z da novaPlanilha
+  const compararPlanilhas = (planilhaCompletaData: any[], novaPlanilhaData: any[]) => {
+    // Cria um mapa de IDs e os dados da coluna Z da planilhaCompleta
+    const mapaPlanilhaCompleta = planilhaCompletaData.reduce((mapa: any, linha: any) => {
+      const id = linha[0]; // ID da coluna A
+      const colunaZ = linha[25]; // Dados da coluna Z
+      mapa[id] = colunaZ; // Mapeia o ID para o valor da coluna Z
+      return mapa;
+    }, {});
+
+    // Atualiza a coluna Z da novaPlanilha com base nos dados da planilhaCompleta
+    return novaPlanilhaData.map((linha: any) => {
+      const idNovaPlanilha = linha[0]; // ID da novaPlanilha (coluna A)
+      if (mapaPlanilhaCompleta[idNovaPlanilha]) {
+        // Se o ID for encontrado, atualiza a coluna Z da novaPlanilha com o valor da planilhaCompleta
+        linha[25] = mapaPlanilhaCompleta[idNovaPlanilha]; // Coluna Z
+      }
+      return linha;
+    });
+  };
+
+  // Manipular a nova planilha e a planilha completa
   const atualizarPlanilha = async () => {
-    if (!novaPlanilha) {
-      setErro('A nova planilha precisa ser selecionada.');
+    if (!novaPlanilha || !planilhaCompleta) {
+      setErro('A nova planilha e a planilha completa precisam ser selecionadas.');
       return;
     }
 
     setLoading(true);
     try {
+      // Ler a nova planilha
       Papa.parse(novaPlanilha, {
         header: false,
         skipEmptyLines: true,
@@ -60,16 +83,31 @@ export const usePlanilha = () => {
             linha.map(corrigirCodificacao) // Aplica a conversão em cada célula
           );
 
-          // Adicionar "Mnemônico" na posição 26
-          const novaPlanilha = adicionarColunaMnemonico(dadosNovaPlanilha);
+          // Ler a planilha completa
+          Papa.parse(planilhaCompleta, {
+            header: false,
+            skipEmptyLines: true,
+            complete: resultadoPlanilhaCompleta => {
+              const dadosPlanilhaCompleta = resultadoPlanilhaCompleta.data.map(linha =>
+                linha.map(corrigirCodificacao) // Aplica a conversão em cada célula
+              );
 
-          // Atualizar estado
-          setPlanilhaModificada(novaPlanilha);
+              // Comparar as planilhas e atualizar a coluna Z da novaPlanilha
+              const novaPlanilhaAtualizada = compararPlanilhas(dadosPlanilhaCompleta, dadosNovaPlanilha);
 
-          // Gerar e fazer o download do CSV
-          gerarCsv(novaPlanilha, 'planilha_modificada.csv');
+              // Atualizar o estado com a planilha modificada
+              setPlanilhaModificada(novaPlanilhaAtualizada);
 
-          setTimeout(() => setLoading(false), 4000);
+              // Gerar e fazer o download do CSV
+              gerarCsv(novaPlanilhaAtualizada, 'nova_planilha_atualizada.csv');
+
+              setTimeout(() => setLoading(false), 4000);
+            },
+            error: () => {
+              setErro('Erro ao ler a planilha completa.');
+              setLoading(false);
+            }
+          });
         },
         error: () => {
           setErro('Erro ao ler a nova planilha.');
@@ -77,17 +115,19 @@ export const usePlanilha = () => {
         }
       });
     } catch (error) {
-      setErro('Ocorreu um erro ao processar a planilha.');
+      setErro('Ocorreu um erro ao processar as planilhas.');
       setLoading(false);
     }
   };
 
   return {
     novaPlanilha,
+    planilhaCompleta,
     erro,
     setErro,
     loading,
     setNovaPlanilha,
+    setPlanilhaCompleta,
     atualizarPlanilha,
     handleErrorClose,
     planilhaModificada
