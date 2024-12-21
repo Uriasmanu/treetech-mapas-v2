@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import Papa from 'papaparse';
 
-interface Linha extends Array<string | number> {}
-
+type Linha = (string | number)[];
 
 export const usePlanilha = () => {
   const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
