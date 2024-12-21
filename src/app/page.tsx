@@ -26,11 +26,12 @@ export default function Home() {
     if (erro) {
       // Fecha o erro após 4 segundos
       const timer = setTimeout(handleErrorClose, 4000);
-
+  
       // Limpa o timer se o componente for desmontado ou se a mensagem de erro for removida
       return () => clearTimeout(timer);
     }
-  }, [erro]);
+  }, [erro, handleErrorClose]);
+  
 
 
   return (
