@@ -12,15 +12,6 @@ export const usePlanilha = () => {
 
   const handleErrorClose = () => setErro('');
 
-  // Função para adicionar "Mnemônico" na posição 26
-  const adicionarColunaMnemonico = (dados: Linha[]): Linha[] => {
-    return dados.map((linha, index) => {
-      const novaLinha = [...linha];
-      novaLinha[25] = index === 0 ? 'Mnemônico' : ''; // Adiciona no cabeçalho ou mantém vazio
-      return novaLinha;
-    });
-  };
-
   // Ajustando a função corrigirCodificacao para aceitar string | number
   const corrigirCodificacao = (texto: string | number): string => {
     try {
