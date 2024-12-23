@@ -23,21 +23,45 @@ export const usePlanilha = () => {
     }
   };
 
-  // Função para converter os dados modificados diretamente para CSV
-  const gerarCsv = (dados: Linha[], fileName: string) => {
+  const enviarParaServidor = async (blob: Blob, fileName: string): Promise<void> => {
+    try {
+      const response = await fetch('/api/save-file', {
+        method: 'POST',
+        headers: {
+          'file-name': fileName,
+        },
+        body: blob,
+      });
+  
+      if (!response.ok) {
+        throw new Error('Erro ao salvar o arquivo no servidor');
+      }
+  
+      const data = await response.json();
+      console.log('Arquivo salvo no servidor:', data.filePath);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  const gerarCsv = async (dados: Linha[], fileName: string): Promise<void> => {
     const csvContent = dados.map(linha => linha.join(';')).join('\n');
-
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8-bom;' });
+  
+    // Fazer o download local
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
-
     link.setAttribute('href', url);
     link.setAttribute('download', fileName);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  
+    // Enviar para o servidor
+    await enviarParaServidor(blob, fileName);
   };
+  
 
   // Função para comparar os IDs das planilhas e atualizar a coluna Z da novaPlanilha
   const compararPlanilhas = (planilhaCompletaData: Linha[], novaPlanilhaData: Linha[]) => {

@@ -2,12 +2,12 @@
 
 import Image from 'next/image';
 import logo from './logo.png';
-import BotaoAtualizar from '@/component/BotaoAtualizar/BotaoAtualizar';
-import Loader from '@/component/Loader/Loader';
 import { useEffect } from 'react';
-import ComponentePlanilha from '@/component/ComponentePlanilha/ComponentePlanilha';
-import MensagemErro from '@/component/MensagemErro/MensagemErro';
 import { usePlanilha } from '@/hook/usePlanilha';
+import MensagemErro from '@/components/MensagemErro/MensagemErro';
+import ComponentePlanilha from '@/components/ComponentePlanilha/ComponentePlanilha';
+import BotaoAtualizar from '@/components/BotaoAtualizar/BotaoAtualizar';
+import Loader from '@/components/Loader/Loader';
 
 
 
