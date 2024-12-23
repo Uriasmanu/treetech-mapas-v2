@@ -1,39 +1,73 @@
-# Treetech Maps V2
+# Treetech Mapas
 
-## Descrição do Projeto
-O **Treetech Maps V2** é um sistema que automatiza o processamento e o cruzamento de dados provenientes de dois arquivos `.csv`, gerando uma planilha final enriquecida com informações complementares.
+**Treetech Mapas** é uma aplicação desenvolvida em **Next.js** para simplificar o processo de atualização de mapeamentos de mnemônicos em planilhas. O sistema compara duas planilhas, localiza os IDs correspondentes e atualiza automaticamente os mnemônicos na planilha principal, gerando um novo arquivo.
 
----
+## ✨ Funcionalidades
 
-## Funcionamento
+- **Upload de Planilhas**: Selecione e envie duas planilhas para o sistema.
+- **Atualização Automatizada**: Substitui os mnemônicos da nova planilha com base nos IDs corretos da planilha de referência.
+- **Download Automatizado**: Gera um arquivo `.csv` atualizado e o disponibiliza para download.
+- **Mensagens de Erro**: Orienta o usuário em caso de problemas durante o processo.
+- **Interface Intuitiva**: Design responsivo e fácil de usar.
 
-### Entrada de Dados:
-- **Primeiro Arquivo:** Contém o mapeamento original, sem a coluna "Mnemônico".
-- **Segundo Arquivo:** Inclui uma correspondência entre IDs (na coluna 1) e mnemônicos (na coluna 2), que representam a versão anterior do módulo.
+## 🚀 Tecnologias Utilizadas
 
-### Processamento:
-O sistema aplica a seguinte lógica:
+- **[Next.js](https://nextjs.org/)**: Framework React para desenvolvimento web.
+- **React Hooks**: Gerenciamento eficiente de estado e efeitos colaterais.
+- **[Papaparse](https://www.papaparse.com/)**: Manipulação avançada de arquivos CSV.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Framework utilitário para estilização.
+- **SCSS**: Pré-processador CSS para maior flexibilidade e organização.
+- **TypeScript**: Tipagem estática para maior segurança e clareza no código.
 
-```excel
-=SE(A2<>"";SE(PROCV(A2;Planilha1!A:B;2;FALSO)=0;"";PROCV(A2;Planilha1!A:B;2;FALSO));"")
-```
-Essa lógica realiza os seguintes passos:
-1. Busca o **mnemônico** correspondente no segundo arquivo para cada ID presente no primeiro arquivo.
-2. Caso o mnemônico não seja encontrado, retorna uma célula vazia.
+## 📋 Pré-requisitos
 
-### Saída:
-- Uma nova coluna é adicionada na posição "Z" com o título **"Mnemônico"**.
-- Essa coluna é preenchida com os **mnemônicos** alinhados corretamente aos seus respectivos **IDs**.
+- Node.js 20 ou superior.
+- Gerenciador de pacotes (npm ou yarn).
 
----
+## 🛠️ Instalação
 
-## Tecnologias Utilizadas
+1. Clone o repositório:
 
-### Frontend:
-- **React com Next.js:** Framework para desenvolvimento de interfaces modernas com rotas otimizadas e rendering eficiente.
-- **TailwindCSS:** Framework CSS para criação de interfaces responsivas e consistentes.
+   ```bash
+   git clone https://github.com/Uriasmanu/treetech-mapas-v2.git
+   cd treetech-mapas
+   ```
 
-### Integração:
-- **Axios:** Biblioteca para chamadas HTTP e integração com APIs.
+2. Instale as dependências:
 
----
+   ```bash
+   npm install
+   ```
+
+3. Inicie o servidor de desenvolvimento:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Acesse a aplicação em: [http://localhost:3000](http://localhost:3000)  
+   Ou acesse a versão publicada em: [https://treetech-mapas-v2.vercel.app/](https://treetech-mapas-v2.vercel.app/)
+
+## 📝 Como Usar
+
+1. **Carregue as planilhas**:
+   - **Nova Planilha**: Planilha que precisa ser atualizada.
+   - **Planilha Completa**: Planilha de referência contendo os mnemônicos corretos.
+
+2. **Clique no botão "Atualizar Planilha"** para iniciar o processo.
+
+3. **Aguarde o processamento**:
+   - Um indicador de carregamento será exibido durante a operação.
+   - Mensagens de erro aparecerão em caso de problemas.
+
+4. **Baixe a planilha corrigida**:
+   - O download será iniciado automaticamente ao finalizar o processo.
+
+## 📦 Dependências
+
+- `next`
+- `react`
+- `papaparse`
+- `tailwindcss`
+- `scss`
+- `typescript`
