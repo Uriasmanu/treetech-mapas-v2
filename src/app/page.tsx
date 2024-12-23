@@ -9,8 +9,6 @@ import ComponentePlanilha from '@/components/ComponentePlanilha/ComponentePlanil
 import BotaoAtualizar from '@/components/BotaoAtualizar/BotaoAtualizar';
 import Loader from '@/components/Loader/Loader';
 
-
-
 export default function Home() {
   const {
     erro,
@@ -20,7 +18,6 @@ export default function Home() {
     atualizarPlanilha,
     handleErrorClose,
   } = usePlanilha();
-
 
   useEffect(() => {
     if (erro) {
@@ -32,8 +29,6 @@ export default function Home() {
     }
   }, [erro, handleErrorClose]);
   
-
-
   return (
     <div className='flex-col flex items-center w-[100vw] h-[100vh] py-8'>
       <header className='w-full flex flex-col items-center gap-3 py-4'>
