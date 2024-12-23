@@ -98,8 +98,12 @@ export const usePlanilha = () => {
               // Atualizar o estado com a planilha modificada
               setPlanilhaModificada(novaPlanilhaAtualizada);
 
+              // Gera o nome do arquivo baseado no nome da novaPlanilha
+              const nomeArquivoOriginal = novaPlanilha.name.split('.')[0]; // Pega o nome sem a extensão
+              const nomeArquivoFinal = `${nomeArquivoOriginal}_atualizada.csv`;
+
               // Gerar e fazer o download do CSV
-              gerarCsv(novaPlanilhaAtualizada, 'nova_planilha_atualizada.csv');
+              gerarCsv(novaPlanilhaAtualizada, nomeArquivoFinal);
 
               setTimeout(() => setLoading(false), 4000);
             },
