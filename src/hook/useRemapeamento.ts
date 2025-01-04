@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 
 type Linha = (string | number)[];
 
-export const usePlanilha = () => {
+export const useRemapeamento = () => {
   const [novaPlanilha, setNovaPlanilha] = useState<File | null>(null);
   const [planilhaCompleta, setPlanilhaCompleta] = useState<File | null>(null);
   const [planilhaModificada, setPlanilhaModificada] = useState<Linha[]>([]);
@@ -41,20 +41,21 @@ export const usePlanilha = () => {
 
   // Função para comparar os IDs das planilhas e atualizar a coluna Z da novaPlanilha
   const compararPlanilhas = (planilhaCompletaData: Linha[], novaPlanilhaData: Linha[]) => {
+
     // Cria um mapa de IDs e os dados da coluna Z da planilhaCompleta
     const mapaPlanilhaCompleta = planilhaCompletaData.reduce((mapa: Record<string | number, string | number>, linha: Linha) => {
       const id = linha[0]; // ID da coluna A
-      const colunaZ = linha[25]; // Dados da coluna Z
-      mapa[id] = colunaZ; // Mapeia o ID para o valor da coluna Z
+      const colunaZ = linha[25];
+      mapa[id] = colunaZ;
       return mapa;
     }, {} as Record<string | number, string | number>);
 
     // Atualiza a coluna Z da novaPlanilha com base nos dados da planilhaCompleta
     return novaPlanilhaData.map((linha) => {
-      const idNovaPlanilha = linha[0]; // ID da novaPlanilha (coluna A)
+      const idNovaPlanilha = linha[0];
       if (mapaPlanilhaCompleta[idNovaPlanilha]) {
         // Se o ID for encontrado, atualiza a coluna Z da novaPlanilha com o valor da planilhaCompleta
-        linha[25] = mapaPlanilhaCompleta[idNovaPlanilha]; // Coluna Z
+        linha[25] = mapaPlanilhaCompleta[idNovaPlanilha];
       }
       return linha;
     });
@@ -89,7 +90,7 @@ export const usePlanilha = () => {
             skipEmptyLines: true,
             complete: (resultadoPlanilhaCompleta: ResultadoPapaParse) => {
               const dadosPlanilhaCompleta = resultadoPlanilhaCompleta.data.map(linha =>
-                linha.map(corrigirCodificacao) // Aplica a conversão em cada célula
+                linha.map(corrigirCodificacao)
               );
 
               // Comparar as planilhas e atualizar a coluna Z da novaPlanilha
