@@ -1,14 +1,15 @@
 # Treetech Mapas
 
-**Treetech Mapas** é uma aplicação desenvolvida em **Next.js** para simplificar o processo de atualização de mapeamentos de mnemônicos em planilhas. O sistema compara duas planilhas, localiza os IDs correspondentes e atualiza automaticamente os mnemônicos na planilha principal, gerando um novo arquivo.
+**Treetech Mapas** é uma aplicação desenvolvida em **Next.js** que automatiza o processo de atualização de mapeamentos de mnemônicos em planilhas. O sistema compara duas planilhas CSV, localiza os IDs correspondentes e atualiza automaticamente os mnemônicos na planilha principal, gerando um novo arquivo com os dados enriquecidos.
 
 ## ✨ Funcionalidades
 
-- **Upload de Planilhas**: Selecione e envie duas planilhas para o sistema.
-- **Atualização Automatizada**: Substitui os mnemônicos da nova planilha com base nos IDs corretos da planilha de referência.
-- **Download Automatizado**: Gera um arquivo `.csv` atualizado e o disponibiliza para download.
-- **Mensagens de Erro**: Orienta o usuário em caso de problemas durante o processo.
-- **Interface Intuitiva**: Design responsivo e fácil de usar.
+- **Upload de Planilhas**: Permite o envio de duas planilhas para o sistema.
+- **Atualização Automatizada**: Substitui os mnemônicos da planilha principal com base nos IDs correspondentes da planilha de referência.
+- **Cálculo de Mnemônicos**: A opção de copiar as informações da coluna "Descrição PT" na coluna W e convertê-las para mnemônicos na coluna Z.
+- **Download Automatizado**: Gera e disponibiliza um arquivo `.csv` atualizado para download.
+- **Mensagens de Erro**: Exibe mensagens claras de erro em caso de problemas durante o processo de atualização.
+- **Interface Intuitiva**: Design responsivo, simples e fácil de usar.
 
 ## 🚀 Tecnologias Utilizadas
 
